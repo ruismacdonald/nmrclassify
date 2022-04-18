@@ -39,8 +39,8 @@ The optimizer that results in the lowest training loss and highest testing accur
 
 ## Future work
 
-The current network is a good first step for building the full network, however it requires the number of single compounds in the mixture to be known. In real data the number is unknown and will need to be determined by the network. One idea I had is to set the number to a high value (greater than the maximum possible) then cluster the estimated masks. The resulting clusters will be the true single compounds. I will need to determine whether setting the number higher than the true number causes issues for mask estimation.
+The current network is a good first step for building the full network, however it requires the number of single compounds in the mixture to be known. In real data the number is unknown and will need to be determined by the network. One idea I had is to set the number to a value greater than the maximum possible and cluster the estimated masks to get the true single compounds. I will need to determine whether setting the number higher than the true number causes issues for mask estimation.
 
-Other future work is to use both spectral data and multiplet data (which is derived from the spectral data) as the input to the network. The raw and multiplet input data will be combined into a single 2D array during the encoder step. This may improve performance because 1D convolution works better on continuous data, and the network will have 2 layers of paired information to work with.
+Other future work is to use both the raw spectral data and derived multiplet data as the inputs to the network. The raw and multiplet data will be combined into a single 2D array during the encoder step. This may improve performance because 1D convolution works better on continuous data, and the network will have 2 layers of paired information to work with.
 
-Once that is done, the model will be scaled up and used with real data. This involves finishing preparing the database data and collecting enough experimental data. 
+Once that is done, the model will be scaled up and used with real data. This involves finishing preparing the database data and collecting enough experimental data.
