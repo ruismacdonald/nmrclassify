@@ -17,7 +17,7 @@ The synthetic data is a simplified abstraction of the real NMR data. Multiplets 
 
 ## Model
 
-The model uses a temporal convolutional network with stacked dilated 1D convolution blocks to estimate the mask for each compound. The model consists of an encoder, separation module and classification module. Depth conv is the convolution block in the separation module, TCN is the separation module, and Net is the full network. The parameters are based on Cov-TasNet but the values are lower since the data is smaller and is pattern data which is simpler than spectral data. These parameters will be scaled up when real data is used.
+The model uses a temporal convolutional network with stacked dilated 1D convolution blocks to estimate the mask for each compound. The model consists of an encoder, separation module and classification module. DepthConv is the convolution block in the separation module, TCN is the separation module, and Net is the full network. The parameters are based on Cov-TasNet but the values are lower since the data is smaller and is pattern data which is simpler than spectral data. These parameters will be scaled up when real data is used.
 
 **Encoder:**
 
