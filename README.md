@@ -36,3 +36,11 @@ The model is trained using cross entropy loss and 1000 epochs. The stochastic gr
 ## Results
 
 The optimizer that results in the lowest training loss and highest testing accuracy changes each time I run the model. I'm not sure why this happens because the data is the same (I used a random seed). Example results are 1.9537 training loss and 0.8286 testing accuracy for SGD, 1.707 training loss and 0.4416 testing accuracy for SGD with momentum, and 1.7201 training loss and 0.6298 testing accuracy for Adam. The results are always around these values. 
+
+## Future work
+
+The current network is a good first step for building the full network, however it requires the number of single compounds in the mixture to be known. In real data the number is unknown and will need to be determined by the network. One idea I had is to set the number to a high value (greater than the maximum possible) then cluster the estimated masks. The resulting clusters will be the true single compounds. I will need to determine whether setting the number higher than the true number causes issues for mask estimation.
+
+Other future work is to use both spectral data and multiplet data (which is derived from the spectral data) as the input to the network. The raw and multiplet input data will be combined into a single 2D array during the encoder step. This may improve performance because 1D convolution works better on continuous data, and the network will have 2 layers of paired information to work with.
+
+Once that is done, the model will be scaled up and used with real data. This involves finishing preparing the database data and collecting enough experimental data. 
