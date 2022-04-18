@@ -12,12 +12,12 @@ An accurate automatic NMR classification method would be extremely valuable beca
 
 ## Datasets
 
-The synethetic data is a simplified abstraction of the real NMR data. Multiplets are represented by (1, 6) arrays with elements representing area ratios. There are 6 different multiplets representing singlets, doublets, triplets, quartets, quintets and sextets. Single compounds (singles) are the addition of 2 sets of multiplets occupying 20% of 21 possible ppm positions. Addition is used to represent addition ratios (multiplets of 2 compounds occupying the same position). Mixed compounds (mixed) are the addition of 3 singles, which results in multiplets occupying 60% of 21 ppm positions.  The testing and training datasets each have 10 mixed compounds. 
+The synthetic data is a simplified abstraction of the real NMR data. Multiplets are represented by (1, 6) arrays with elements representing the area ratios between peaks. There are 6 different multiplets representing singlets, doublets, triplets, quartets, quintets and sextets. Singles are 10 single compounds. Masks are used so that multiplets only occupy a percentage of the 21 ppm positions. Two sets are added to represent multiplets of 2 different compounds occupying the same positions. Mixed are a mixture of 3 single compounds.  The testing and training datasets each have 10 mixed compounds.
 
 
 ## Model
 
-The model uses a temporal convolutional network with stacked dilated 1D convolution blocks to estimate the mask for each compound. The model consists of an encoder, separation module and classification module. 
+The model uses a temporal convolutional network with stacked dilated 1D convolution blocks to estimate the mask for each compound. The model consists of an encoder, separation module and classification module. Depth conv is the convolution block in the separation module, TCN is the separation module, and Net is the full network. The parameters are based on Cov-TasNet but the values are lower since the data is smaller and is pattern data which is simpler than spectral data. These parameters will be scaled up when real data is used.
 
 **Encoder:**
 
@@ -31,11 +31,11 @@ The model estimates the masks using 3 stacks of 4 layers of convolution blocks w
 
 1D convolution is used to transform the separated mixture from multi-dimensional to one-dimensional, a linear layer is used to transform the third dimension from 21 (ppm positions) to 10 (compound classes), and a Softmax layer is used to determine the probability distribution across the classes.
 
-The model is trained using cross entropy loss and 1000 epochs. The stochastic gradient descent, stochastic gradient descent with momentum of 0.99 and Adam optimizer were used, each with a weight decay of 1e-5. These parameters were chosen because they result in the lowest losses. 
+The output of the network is the probability distribution across the classes. The model is trained using cross entropy loss and 1000 epochs. The stochastic gradient descent, stochastic gradient descent with momentum of 0.99 and Adam optimizer were used, each with a weight decay of 1e-5. These parameters were chosen because they result in the lowest losses.
 
 ## Results
 
-The optimizer that results in the lowest training loss and highest testing accuracy changes each time I run the model. I'm not sure why this happens because the data is the same (I used a random seed). Example results are 1.9537 training loss and 0.8286 testing accuracy for SGD, 1.707 training loss and 0.4416 testing accuracy for SGD with momentum, and 1.7201 training loss and 0.6298 testing accuracy for Adam. The results are always around these values. 
+The optimizer that results in the lowest training loss and highest testing accuracy changes each time I run the model. I'm not sure why this happens because I used a random seed so that the data stays the same. Example results are 1.9537 training loss and 0.8286 testing accuracy for SGD, 1.707 training loss and 0.4416 testing accuracy for SGD with momentum, and 1.7201 training loss and 0.6298 testing accuracy for Adam. The results are always around these values. 
 
 ## Future work
 
